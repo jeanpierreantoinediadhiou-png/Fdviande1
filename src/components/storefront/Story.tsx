@@ -28,13 +28,15 @@ export function Story() {
               Notre histoire
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-bold mt-4 leading-tight">
-              Trois générations <br />
-              <span className="italic text-accent">d'amour</span> pour la viande.
+              Viande TP est né d’une ambition claire : rendre la viande fraîche, de qualité
+              et 100% fiable accessible à tous.
             </h2>
             <p className="mt-6 text-secondary-foreground/70 leading-relaxed">
-              Depuis 1962, la maison Viande TP perpétue un savoir-faire transmis de père en fils.
-              Nous croyons qu'une grande viande commence par un grand élevage — et se termine
-              dans le respect du produit.
+              En collaborant directement avec des éleveurs locaux, nous garantissons des produits
+              soigneusement sélectionnés, dans le respect des normes d’hygiène et de traçabilité.
+              Notre mission est simple : vous offrir le meilleur de la viande, avec une expérience
+              de commande rapide, moderne et sécurisée. Avec Viande TP, la qualité et la confiance
+              sont toujours au rendez-vous.
             </p>
           </div>
 

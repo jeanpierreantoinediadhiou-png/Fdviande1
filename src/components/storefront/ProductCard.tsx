@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="group relative overflow-hidden rounded-lg bg-card shadow-card transition-spring hover:shadow-elegant hover:-translate-y-1">
       <div className="relative aspect-square overflow-hidden bg-muted">
+        <Link to={`/product/${product.id}`} className="absolute inset-0 z-10" aria-label={`Voir ${product.nom}`} />
         <img
           src={product.image}
           alt={product.nom}
