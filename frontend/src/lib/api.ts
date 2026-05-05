@@ -33,6 +33,35 @@ export interface RegisterRequest {
   role?: string;
 }
 
+export interface Review {
+  id: string | number;
+  author: string;
+  rating: number;
+  comment: string;
+  date: string;
+}
+
+export interface ProductDetail {
+  id: string | number;
+  nom: string;
+  prix: number;
+  oldPrice?: number;
+  description: string;
+  images: string[];
+  image: string;
+  category: string;
+  type: string;
+  quantite: number;
+  stock: number;
+  origin: string;
+  weight: string;
+  freshness: string;
+  storage: string;
+  createdAt: string;
+  rating: number;
+  reviews: Review[];
+}
+
 /**
  * Effectue une requête API avec gestion d'erreurs automatique
  */
@@ -137,5 +166,25 @@ export async function checkHealth() {
   
   return apiRequest<any>('/health', {
     method: 'GET',
+  });
+}
+
+export async function getProducts() {
+  return apiRequest<ProductDetail[]>('/products', { method: 'GET' });
+}
+
+export async function getProductById(id: string | number) {
+  return apiRequest<ProductDetail>(`/products/${id}`, { method: 'GET' });
+}
+
+export async function postReview(
+  productId: string | number,
+  author: string,
+  rating: number,
+  comment: string,
+) {
+  return apiRequest<{ review: Review; reviews: Review[]; rating: number }>('/reviews', {
+    method: 'POST',
+    body: JSON.stringify({ productId, author, rating, comment }),
   });
 }

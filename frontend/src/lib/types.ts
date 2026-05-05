@@ -9,6 +9,14 @@ export const CATEGORIES: { value: ProductCategory; label: string }[] = [
   { value: "porc", label: "Porc" },
 ];
 
+export interface Review {
+  id: string | number;
+  author: string;
+  rating: number;
+  comment: string;
+  date: string;
+}
+
 export interface Product {
   id: string;
   nom: string;
@@ -17,6 +25,28 @@ export interface Product {
   quantite: number; // stock
   image: string;
   description: string;
+  oldPrice?: number;
+  images?: string[];
+  stock?: number;
+  category?: ProductCategory | string;
+  origin?: string;
+  weight?: string;
+  createdAt?: string;
+  freshness?: string;
+  storage?: string;
+}
+
+export interface ProductDetail extends Product {
+  images: string[];
+  category: ProductCategory | string;
+  stock: number;
+  rating: number;
+  reviews: Review[];
+  origin: string;
+  weight: string;
+  createdAt: string;
+  freshness: string;
+  storage: string;
 }
 
 export interface CartItem {

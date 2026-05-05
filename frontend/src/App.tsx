@@ -6,6 +6,7 @@ import { ShopProvider } from "./context/ShopContext";
 import Index from "./pages/Index.tsx";
 import Auth from "./pages/Auth.tsx";
 import TestConnection from "./pages/TestConnection.tsx";
+import ProductDetail from "./pages/ProductDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Dashboard from "./pages/admin/Dashboard.tsx";
 import Products from "./pages/admin/Products.tsx";
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/test" element={<TestConnection />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="products" element={<Products />} />

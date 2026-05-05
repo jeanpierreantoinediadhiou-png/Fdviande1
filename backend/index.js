@@ -69,14 +69,176 @@ const users = [
   }
 ];
 
+const computeRating = (product) => {
+  if (!Array.isArray(product.reviews) || product.reviews.length === 0) {
+    product.rating = 0;
+    return;
+  }
+  const total = product.reviews.reduce((sum, review) => sum + review.rating, 0);
+  product.rating = Number((total / product.reviews.length).toFixed(1));
+};
+
 let products = [
-  { id: 1, nom: "Côte de Bœuf", prix: 12500, categorie: "Boeuf", stock: 15, image: "https://images.unsplash.com/photo-1546241072-48010ad28c2c?w=400", description: "Côte de bœuf premium" },
-  { id: 2, nom: "Poulet Fermier", prix: 5000, categorie: "Volaille", stock: 20, image: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400", description: "Poulet fermier entier" },
-  { id: 3, nom: "Saucisses de Porc", prix: 3500, categorie: "Porc", stock: 10, image: "https://images.unsplash.com/photo-1518977676601-b53f82baa6f8?w=400", description: "Saucisses fraîches de porc" },
-  { id: 4, nom: "Filet Mignon", prix: 18000, categorie: "Boeuf", stock: 8, image: "https://images.unsplash.com/photo-1558030006-450675393462?w=400", description: "Filet mignon tendre" },
-  { id: 5, nom: "Gigot d'Agneau", prix: 15000, categorie: "Agneau", stock: 12, image: "https://images.unsplash.com/photo-1625944525533-473f1e635245?w=400", description: "Gigot d'agneau frais" },
-  { id: 6, nom: "Viande Hachée", prix: 4000, categorie: "hache", stock: 25, image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400", description: "Viande hachée 80% maigre" }
+  {
+    id: "p1",
+    nom: "Côte de Bœuf",
+    prix: 12500,
+    oldPrice: 16000,
+    description: "Côte de bœuf maturée, tendre et savoureuse, idéale pour un barbecue de qualité.",
+    images: [
+      "https://images.unsplash.com/photo-1546241072-48010ad28c2c?w=1200",
+      "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1200",
+      "https://images.unsplash.com/photo-1542831371-d531d36971e6?w=1200",
+    ],
+    image: "https://images.unsplash.com/photo-1546241072-48010ad28c2c?w=1200",
+    category: "boeuf",
+    type: "boeuf",
+    quantite: 15,
+    stock: 15,
+    origin: "Sénégal",
+    weight: "1.2 kg",
+    freshness: "Abattu il y a 2 jours",
+    storage: "Réfrigération 0-4°C",
+    createdAt: "2026-04-28T10:00:00Z",
+    reviews: [
+      { id: 101, author: "Fatou", rating: 5, comment: "Viande délicieuse et parfaitement fraîche.", date: "2026-04-28T09:20:00Z" },
+      { id: 102, author: "Moussa", rating: 4, comment: "Super tendreté, je recommande.", date: "2026-04-25T16:35:00Z" },
+    ],
+    categorie: "Boeuf",
+  },
+  {
+    id: "p2",
+    nom: "Poulet Fermier",
+    prix: 5000,
+    oldPrice: 6500,
+    description: "Poulet fermier élevé en plein air, goût authentique et chair juteuse.",
+    images: [
+      "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=1200",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200",
+      "https://images.unsplash.com/photo-1604908177522-f2563398d1bd?w=1200",
+    ],
+    image: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=1200",
+    category: "poulet",
+    type: "poulet",
+    quantite: 20,
+    stock: 20,
+    origin: "Sénégal",
+    weight: "1.6 kg",
+    freshness: "Abattu il y a 1 jour",
+    storage: "Réfrigération 0-4°C",
+    createdAt: "2026-04-30T08:00:00Z",
+    reviews: [
+      { id: 201, author: "Aïcha", rating: 5, comment: "Parfait pour la famille, la cuisson est toujours réussie.", date: "2026-05-01T11:05:00Z" },
+    ],
+    categorie: "Volaille",
+  },
+  {
+    id: "p3",
+    nom: "Saucisses de Porc",
+    prix: 3500,
+    oldPrice: 0,
+    description: "Saucisses artisanales de porc, fines et savoureuses, préparées avec soin.",
+    images: [
+      "https://images.unsplash.com/photo-1518977676601-b53f82baa6f8?w=1200",
+      "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1200",
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200",
+    ],
+    image: "https://images.unsplash.com/photo-1518977676601-b53f82baa6f8?w=1200",
+    category: "porc",
+    type: "porc",
+    quantite: 10,
+    stock: 10,
+    origin: "Sénégal",
+    weight: "0.8 kg",
+    freshness: "Abattu il y a 3 jours",
+    storage: "Réfrigération 0-4°C",
+    createdAt: "2026-04-27T13:00:00Z",
+    reviews: [
+      { id: 301, author: "Khadim", rating: 4, comment: "Idéal pour un repas convivial, très bon rapport qualité/prix.", date: "2026-04-28T19:20:00Z" },
+    ],
+    categorie: "Porc",
+  },
+  {
+    id: "p4",
+    nom: "Filet Mignon",
+    prix: 18000,
+    oldPrice: 22000,
+    description: "Filet mignon de bœuf, texture fondante et goût raffiné.",
+    images: [
+      "https://images.unsplash.com/photo-1558030006-450675393462?w=1200",
+      "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=1200",
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200",
+    ],
+    image: "https://images.unsplash.com/photo-1558030006-450675393462?w=1200",
+    category: "boeuf",
+    type: "boeuf",
+    quantite: 8,
+    stock: 8,
+    origin: "Sénégal",
+    weight: "0.9 kg",
+    freshness: "Abattu il y a 2 jours",
+    storage: "Réfrigération 0-4°C",
+    createdAt: "2026-04-29T10:00:00Z",
+    reviews: [
+      { id: 401, author: "Marie", rating: 5, comment: "Un incontournable pour les grandes occasions.", date: "2026-05-02T14:50:00Z" },
+    ],
+    categorie: "Boeuf",
+  },
+  {
+    id: "p5",
+    nom: "Gigot d'Agneau",
+    prix: 15000,
+    oldPrice: 17500,
+    description: "Gigot d'agneau tendre, élevé localement et préparé pour une cuisson maîtrisée.",
+    images: [
+      "https://images.unsplash.com/photo-1625944525533-473f1e635245?w=1200",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200",
+      "https://images.unsplash.com/photo-1600185364398-847acc2af2f5?w=1200",
+    ],
+    image: "https://images.unsplash.com/photo-1625944525533-473f1e635245?w=1200",
+    category: "agneau",
+    type: "agneau",
+    quantite: 12,
+    stock: 12,
+    origin: "Sénégal",
+    weight: "1.4 kg",
+    freshness: "Abattu il y a 4 jours",
+    storage: "Réfrigération 0-4°C",
+    createdAt: "2026-04-24T09:00:00Z",
+    reviews: [
+      { id: 501, author: "Abdou", rating: 5, comment: "Une viande très savoureuse et bien conditionnée.", date: "2026-04-26T12:30:00Z" },
+    ],
+    categorie: "Agneau",
+  },
+  {
+    id: "p6",
+    nom: "Viande Hachée",
+    prix: 4000,
+    oldPrice: 5500,
+    description: "Viande hachée 80% maigre, parfaite pour burgers, boulettes et kebabs.",
+    images: [
+      "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=1200",
+      "https://images.unsplash.com/photo-1605474437746-8ec7796a5d60?w=1200",
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200",
+    ],
+    image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=1200",
+    category: "hache",
+    type: "hache",
+    quantite: 25,
+    stock: 25,
+    origin: "Sénégal",
+    weight: "0.5 kg",
+    freshness: "Abattu il y a 1 jour",
+    storage: "Réfrigération 0-4°C",
+    createdAt: "2026-05-01T07:00:00Z",
+    reviews: [
+      { id: 601, author: "Aminata", rating: 4, comment: "Qualité excellente pour des plats maison.", date: "2026-05-03T09:10:00Z" },
+    ],
+    categorie: "Viande hachée",
+  },
 ];
+
+products.forEach(computeRating);
 
 let orders = [
   { id: "ORD-001", client: "Jean Dupont", total: 17500, statut: "EN_ATTENTE", date: new Date().toISOString(), produits: ["Côte de Bœuf", "Poulet Fermier"] },
@@ -87,12 +249,82 @@ let orders = [
 ];
 
 // --- API PRODUITS ---
-app.get('/api/products', (req, res) => res.json(products));
+app.get('/api/products', (req, res) => {
+  const category = req.query.category?.toString().toLowerCase();
+  let result = products;
+
+  if (category) {
+    result = products.filter((product) => product.category?.toLowerCase() === category);
+  }
+
+  res.json(result);
+});
+
+app.get('/api/products/:id', (req, res) => {
+  const product = products.find((p) => p.id.toString() === req.params.id);
+  if (!product) {
+    return res.status(404).json({ message: "Produit non trouvé." });
+  }
+  res.json(product);
+});
 
 app.post('/api/products', (req, res) => {
-  const newProduct = { id: Date.now(), ...req.body };
+  const payload = req.body;
+  const newProduct = {
+    id: `p${Date.now()}`,
+    nom: payload.nom || payload.name || "Produit Viande TP",
+    prix: Number(payload.prix || payload.price || 0),
+    quantite: Number(payload.quantite || payload.stock || 0),
+    stock: Number(payload.stock || payload.quantite || 0),
+    image: payload.image || payload.images?.[0] || "",
+    images: payload.images || [payload.image] || [],
+    category: payload.category || payload.type || "boeuf",
+    type: payload.type || payload.category || "boeuf",
+    description: payload.description || "Description indisponible.",
+    origin: payload.origin || "Sénégal",
+    weight: payload.weight || "0.5 kg",
+    freshness: payload.freshness || "Abattu récemment",
+    storage: payload.storage || "Réfrigération 0-4°C",
+    createdAt: payload.createdAt || new Date().toISOString(),
+    oldPrice: payload.oldPrice || 0,
+    reviews: payload.reviews || [],
+    rating: 0,
+    categorie: payload.categorie || payload.category || "Boeuf",
+  };
+  computeRating(newProduct);
   products.push(newProduct);
   res.status(201).json(newProduct);
+});
+
+app.post('/api/reviews', (req, res) => {
+  const { productId, author, rating, comment } = req.body;
+
+  if (!productId || !author || !comment || !rating) {
+    return res.status(400).json({ message: "Tous les champs du commentaire sont requis." });
+  }
+
+  const product = products.find((p) => p.id.toString() === productId.toString());
+  if (!product) {
+    return res.status(404).json({ message: "Produit non trouvé." });
+  }
+
+  const review = {
+    id: Date.now(),
+    author,
+    rating: Number(rating),
+    comment,
+    date: new Date().toISOString(),
+  };
+
+  product.reviews.unshift(review);
+  computeRating(product);
+
+  res.status(201).json({
+    message: "Avis ajouté avec succès.",
+    review,
+    reviews: product.reviews,
+    rating: product.rating,
+  });
 });
 
 app.put('/api/products/:id', (req, res) => {
@@ -274,6 +506,8 @@ const server = app.listen(PORT, () => {
   console.log('║    POST /api/login                    ║');
   console.log('║    POST /api/register                 ║');
   console.log('║    GET  /api/products                 ║');
+  console.log('║    GET  /api/products/:id             ║');
+  console.log('║    POST /api/reviews                  ║');
   console.log('║    PUT  /api/products/:id             ║');
   console.log('║    GET  /api/orders                   ║');
   console.log('╚════════════════════════════════════════╝');
